@@ -10,9 +10,9 @@ import { protect } from "../auth/authMiddleware.js";
 const router = express.Router();
 
 // Only DPO can create, update, delete
-router.post("/", protect(["dpo"]), createDepartment);
-router.put("/:id", protect(["dpo"]), updateDepartment);
-router.delete("/:id", protect(["dpo"]), deleteDepartment);
+router.post("/", protect(["dpo", "super_admin"]), createDepartment);
+router.put("/:id", protect(["dpo", "super_admin"]), updateDepartment);
+router.delete("/:id", protect(["dpo", "super_admin"]), deleteDepartment);
 
 // All authenticated users can view
 router.get("/", protect(), getDepartments);

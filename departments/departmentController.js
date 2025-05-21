@@ -1,4 +1,4 @@
-import { eq, isNull } from "drizzle-orm";
+import { eq, isNull, and } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../db/index.js";
 import { departments } from "../drizzle/schema.js";
@@ -43,7 +43,7 @@ export async function getDepartments(req, res) {
         .select({ count: departments.id })
         .from(departments)
         .where(and(...filters))
-        .then((r) => r[0].count),
+        .then((r) => r[0]?.count || 0),
     ]);
 
     res.json({
